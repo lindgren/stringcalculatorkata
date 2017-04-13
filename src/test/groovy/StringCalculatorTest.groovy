@@ -15,12 +15,13 @@ class StringCalculatorTest extends Specification {
         stringCalculator.add(NUMBERS) == SUM
 
         where:
-        NUMBERS         | SUM
-        ''              | 0
-        '1'             | 1
-        '1,2'           | 3
-        '1\n2,3'        | 6
-        '//;\n1;2'      | 3
+        NUMBERS                 | SUM
+        ''                      | 0
+        '1'                     | 1
+        '1,2'                   | 3
+        '1\n2,3'                | 6
+        '//;\n1;2'              | 3
+        '//[***]\n1***2***3'    | 6
     }
 
     def "should throw exception for negative numbers"() {

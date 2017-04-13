@@ -42,11 +42,11 @@ public class StringCalculator {
     }
 
     private String getDelimiter(String numbers) {
-        Pattern pattern = Pattern.compile("//(.)");
+        Pattern pattern = Pattern.compile("//\\[?(.*?)\\]?\n");
         Matcher matcher = pattern.matcher(numbers);
 
         if(matcher.find()) {
-            return matcher.group(1);
+            return "\\Q" +matcher.group(1) +"\\E";
         }
 
         return DEFAULT_DELIMITER;
