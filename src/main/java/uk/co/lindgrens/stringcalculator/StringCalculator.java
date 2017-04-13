@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
     private static final String DEFAULT_DELIMITER = ",";
+    public static final int VALID_NUMBER_LOWER_BOUND = 0;
+    public static final int VALID_NUMBER_UPPER_BOUND = 1000;
 
     public int add(String numbers) {
         if(numbers.isEmpty()) {
@@ -78,7 +80,7 @@ public class StringCalculator {
     }
 
     private int calculateNewTotal(int sum, int num) {
-        if(num > 0) {
+        if(num >= VALID_NUMBER_LOWER_BOUND && num <= VALID_NUMBER_UPPER_BOUND) {
             sum +=num;
         }
 

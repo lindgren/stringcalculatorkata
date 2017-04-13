@@ -8,6 +8,7 @@ class StringCalculatorTest extends Specification {
     def setup() {
         stringCalculator = new StringCalculator()
     }
+
     @Unroll
     def "should calculate the sum of numbers"() {
         expect:
@@ -32,5 +33,16 @@ class StringCalculatorTest extends Specification {
         then:
         Exception exception = thrown(IllegalArgumentException)
         exception.message == '-1,-2,-3'
+    }
+
+    def "should ignore numbers bigger than 1000"() {
+        given:
+        String numbers = '2,1000,1001'
+
+        when:
+        int sum = stringCalculator.add(numbers)
+
+        then:
+        sum == 1002
     }
 }
