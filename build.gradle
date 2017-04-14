@@ -1,6 +1,5 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
-apply plugin: 'idea'
 
 repositories {
     jcenter()
@@ -21,9 +20,3 @@ dependencies {
     testCompile "org.codehaus.groovy:groovy-all:2.4.3"
 }
 
-idea {
-    project {
-        jdkName = languageLevel
-        languageLevel = languageLevel
-    }
-}
