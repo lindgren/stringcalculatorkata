@@ -1,9 +1,10 @@
+package uk.co.lindgrens.stringcalculator
+
 import spock.lang.Specification
 import spock.lang.Unroll
-import uk.co.lindgrens.stringcalculator.StringCalculator
 
 class StringCalculatorTest extends Specification {
-    StringCalculator stringCalculator
+    private StringCalculator stringCalculator
 
     def setup() {
         stringCalculator = new StringCalculator()
