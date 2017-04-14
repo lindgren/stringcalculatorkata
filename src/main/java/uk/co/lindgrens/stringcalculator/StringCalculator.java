@@ -10,6 +10,8 @@ public class StringCalculator {
     private static final String DEFAULT_DELIMITER = ",";
     private static final int VALID_NUMBER_LOWER_BOUND = 0;
     private static final int VALID_NUMBER_UPPER_BOUND = 1000;
+    private Pattern singleCharacterDelimiterPattern = Pattern.compile("//(.)\n");
+    private Pattern multiDelimiterWithSquareBracketsPattern = Pattern.compile("\\[(.*?)\\]");
 
     public int add(String numbers) {
         if(numbers.isEmpty()) {
@@ -42,17 +44,51 @@ public class StringCalculator {
     }
 
     private String getDelimiter(String numbers) {
-        Pattern pattern = Pattern.compile("//\\[?(.*?)\\]?\n");
-        Matcher matcher = pattern.matcher(numbers);
-
-        if(matcher.find()) {
-            return "\\Q" +matcher.group(1) +"\\E";
+        if(isDefaultDelimiter(numbers)) {
+            return DEFAULT_DELIMITER;
         }
 
-        return DEFAULT_DELIMITER;
+        return getCustomDelimiter(numbers);
     }
 
-    private String sanitiseNumberSeries(String delimiter, String numberSeries) {
+    private String getCustomDelimiter(String numbers) {
+        Matcher matcher = singleCharacterDelimiterPattern.matcher(numbers);
+        if(matcher.find()) {
+            return getEscapedDelimiter(matcher.group(1));
+        }
+
+        return getMultiDelimiterWithSquareBrackets(numbers);
+    }
+
+    private String getEscapedDelimiter(String delimiter) {
+        return "\\Q" +delimiter +"\\E";
+    }
+
+    private String getMultiDelimiterWithSquareBrackets(String numbers) {
+        Matcher matcher = multiDelimiterWithSquareBracketsPattern.matcher(numbers);
+        List<String> listOfDelimiters = new ArrayList<>();
+        while(matcher.find()) {
+            listOfDelimiters.add(getEscapedDelimiter(matcher.group(1)));
+        }
+
+        return buildRegex(listOfDelimiters);
+    }
+
+    private String buildRegex(List<String> listOfDelimiters) {
+        int pos = 0;
+        StringBuilder delimiter = new StringBuilder();
+        for(String del : listOfDelimiters) {
+            delimiter.append(del);
+            if(pos < listOfDelimiters.size() - 1) {
+                delimiter.append("|");
+            }
+            pos++;
+        }
+
+        return delimiter.toString();
+    }
+
+   private String sanitiseNumberSeries(String delimiter, String numberSeries) {
         return numberSeries.replaceAll("\\n", delimiter);
     }
 
