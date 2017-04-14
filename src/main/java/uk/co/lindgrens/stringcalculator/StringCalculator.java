@@ -25,7 +25,7 @@ public class StringCalculator {
     }
 
     private String extractNumberSequence(String numbers) {
-        if(isDefaultDelimiter(numbers)) {
+        if(isNumberSerieWithoutCustomDelimiter(numbers)) {
             return numbers;
         }
 
@@ -33,7 +33,7 @@ public class StringCalculator {
         return numbers.substring(startPos, numbers.length());
     }
 
-    private boolean isDefaultDelimiter(String numbers) {
+    private boolean isNumberSerieWithoutCustomDelimiter(String numbers) {
         return !numbers.startsWith("//");
     }
 
