@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
     private static final String DEFAULT_DELIMITER = ",";
-    public static final int VALID_NUMBER_LOWER_BOUND = 0;
-    public static final int VALID_NUMBER_UPPER_BOUND = 1000;
+    private static final int VALID_NUMBER_LOWER_BOUND = 0;
+    private static final int VALID_NUMBER_UPPER_BOUND = 1000;
 
     public int add(String numbers) {
         if(numbers.isEmpty()) {
