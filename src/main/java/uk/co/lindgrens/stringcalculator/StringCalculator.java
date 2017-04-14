@@ -16,7 +16,7 @@ public class StringCalculator {
         return calculateSum(parseInput(numbers));
     }
 
-    private List<String> parseInput(String numbers) {
+    private List<Integer> parseInput(String numbers) {
         String numberSeries = extractNumberSequence(numbers);
         String delimiter = getDelimiter(numbers);
 
@@ -46,15 +46,20 @@ public class StringCalculator {
         return numberSeries.replaceAll("\\n", delimiter);
     }
 
-    private List<String> getNumbersAsListOfStrings(String delimiter, String numberSeries) {
-        return Arrays.asList(numberSeries.split(delimiter));
+    private List<Integer> getNumbersAsListOfStrings(String delimiter, String numberSeries) {
+        List<String> numbersAsList = Arrays.asList(numberSeries.split(delimiter));
+        List<Integer> numbersList = new ArrayList<>();
+        for(String val : numbersAsList) {
+            numbersList.add(Integer.parseInt(val));
+        }
+
+        return numbersList;
     }
 
-   private int calculateSum(List<String> numbersList) {
+   private int calculateSum(List<Integer> numbersList) {
         int total = 0;
         List<Integer> errors = new ArrayList<>();
-        for(String val : numbersList) {
-            int num = Integer.parseInt(val);
+        for(int num : numbersList) {
             reportNegativeNumber(errors, num);
             total = calculateNewTotal(total, num);
         }
